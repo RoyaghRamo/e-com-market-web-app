@@ -2,6 +2,16 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.6.
 
+## Project Description
+
+This is an E-Commerce Market Application. 
+The goal is to have a login/register, products & cart.
+For this purpose, I'll be implementing in this WebApp the following:
+- Authentication Pages
+- Products Scrolling & Adding to Cart
+- Categories List
+- Cart Management
+
 ## Running on Docker
 
 To run the web-app on docker, make sure that the API is running first and then use this command to run the web-app.
