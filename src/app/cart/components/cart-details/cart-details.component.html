@@ -1,1 +1,82 @@
-<p>cart-details works!</p>
+<div class="cartBox">
+  <h1 class="text-danger">Shopping Cart</h1>
+  <div class="headCart">
+    <p class="lead">
+      You have <label class="text-danger">{{ cartOrders.length }}</label> item{{
+      cartOrders.length > 1 ? "s" : ""
+      }}
+      in your cart
+    </p>
+    <div *ngIf="cartOrders.length > 0">
+      <a (click)="saveCart()" class="btn btn-outline-primary">Save Cart</a>
+      <br/>
+      <button (click)="clearCart()" class="btn btn-outline-danger">
+        Clear Cart
+      </button>
+    </div>
+  </div>
+  <table *ngIf="cartOrders.length > 0" class="table table-striped">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Total</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let order of cartOrders; let index = index">
+      <td>
+        <img
+          alt="{{ order.product.title }}"
+          src="{{ order.product.image }}"
+        />
+      </td>
+      <td>{{ order.product.title }}</td>
+      <td>{{ order.product.price | number : ".2" }} $</td>
+      <td>
+        <div class="quantity">
+          <button (click)="increase(index)" class="btn btn-dark">+</button>
+          <input
+            (change)="onQuantityChange()"
+            [(ngModel)]="order.quantity"
+            class="form-control"
+            disabled
+            min="1"
+            type="number"
+          />
+          <button (click)="decrease(index)" class="btn btn-dark">-</button>
+        </div>
+      </td>
+      <td>{{ order.quantity * order.product.price | number : ".2" }} $</td>
+      <td>
+        <button (click)="onDelete(index)" class="btn btn-danger">
+          Delete
+        </button>
+      </td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>Total: {{ total | number : ".2" }} $</th>
+      <th>
+        <button (click)="orderNow()" class="btn btn-success">
+          Order now
+        </button>
+      </th>
+    </tr>
+    </tfoot>
+  </table>
+</div>
+<div *ngIf="success" class="alert alert-success">
+  <strong>Well done!</strong> Your order is successfully sent!
+</div>
+<div class="flex-row-reverse">
+  <a class="btn btn-outline-primary" routerLink="./history">View old orders</a>
+</div>
