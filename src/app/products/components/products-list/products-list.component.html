@@ -1,1 +1,22 @@
-<p>products-list works!</p>
+<div class="box mt-5">
+  <div class="my-2 w-25">
+    <app-select
+      (selectedValueEmitter)="onSelectedCategory($event)"
+      [data]="categories"
+      [title]="'Categories'"
+    ></app-select>
+  </div>
+
+  <div *ngIf="!loading" class="row">
+    <div *ngFor="let p of products" class="col-md-3 col-sm-12">
+      <app-product-card
+        (orderEmitter)="addToCart($event)"
+        [product]="p"
+      ></app-product-card>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="text-center w-100">
+    <app-spinner></app-spinner>
+  </div>
+</div>

@@ -1,1 +1,7 @@
-<p>select works!</p>
+<label class="my-1">{{ title }}:</label>
+<select (change)="changeValue($event)" class="form-control">
+  <option selected value="0">All</option>
+  <option *ngFor="let c of data" value="{{ c.id }}">
+    {{ c.title }}
+  </option>
+</select>

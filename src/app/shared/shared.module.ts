@@ -8,6 +8,6 @@ import { RouterLink } from '@angular/router';
 @NgModule({
   declarations: [HeaderComponent, SelectComponent, SpinnerComponent],
   imports: [CommonModule, RouterLink],
-  exports: [HeaderComponent],
+  exports: [HeaderComponent, SelectComponent, SpinnerComponent],
 })
 export class SharedModule {}

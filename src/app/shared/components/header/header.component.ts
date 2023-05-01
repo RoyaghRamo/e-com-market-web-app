@@ -1,5 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
+import { AuthService } from '../../../auth/services/auth.service';
+import { CredentialsService } from '../../../core/services/credentials.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -11,9 +14,28 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private unSub$: Subject<boolean> = new Subject<boolean>();
 
-  onLogout() {}
+  constructor(
+    private authService: AuthService,
+    private credentialsService: CredentialsService,
+    private router: Router
+  ) {}
 
-  ngOnInit() {}
+  onLogout() {
+    this.authService.logout();
+    this.router.navigateByUrl('/auth/login');
+  }
+
+  ngOnInit() {
+    this.isLoggedIn = this.credentialsService.isAuthenticated();
+    this.authService
+      .getAuthStatusListener()
+      .pipe(takeUntil(this.unSub$))
+      .subscribe({
+        next: (isAuthenticated) => {
+          this.isLoggedIn = isAuthenticated;
+        },
+      });
+  }
 
   ngOnDestroy() {
     this.unSub$.next(true);
