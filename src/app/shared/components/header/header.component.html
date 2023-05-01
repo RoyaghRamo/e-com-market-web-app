@@ -1,0 +1,13 @@
+<nav>
+  <div class="container">
+    <div class="content">
+      <a class="logo" routerLink="/">E~Com Market</a>
+      <ul>
+        <li (click)="onLogout()" *ngIf="isLoggedIn">Logout</li>
+        <li *ngIf="!isLoggedIn" routerLink="/auth/register">Register</li>
+        <li *ngIf="!isLoggedIn" routerLink="/auth/login">Login</li>
+        <li *ngIf="isLoggedIn" routerLink="/cart">Cart</li>
+      </ul>
+    </div>
+  </div>
+</nav>
